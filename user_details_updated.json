@@ -1,0 +1,81 @@
+{
+  "email": "bhaveshwalankar@gmail.com",
+  "password": "@Bhavesh8103",
+  "google_email": "bhavesh1234@gmail.com",
+  "google_password": "Bhavesh8103",
+  "first_name": "Bhavesh",
+  "last_name": "Walankar",
+  "phone": "8103656561",
+  "phone_number": "+1-890-098-8989",
+  "keywords": "Science, Engineering, Technology",
+  "location": "Ujjain, Madhya Pradesh, India",
+  "preffered_location": [
+    "Califonia",
+    "San Fransico",
+    "New York"
+  ],
+  "resume_path": "F:/NN/automation_search/resume.pdf",
+  "resume": "resume.pdf",
+  "relocation": "Yes",
+  "race":"asian",
+  "familiar_with_twitch": "Yes",
+  "sql_experience": "Yes",
+  "gender": "Prefer not to say",
+  "disability_status": "No",
+  "linkedin_profile": "https://linkedin.com/in/bhaveshwalankar",
+  "website": "https://github.com/16bhavesh",
+  "experience_years": "5",
+  "education": [
+    {
+      "school": "Ujjain Engineering College, Ujjain",
+      "degree": "B.Tech.",
+      "discipline": "Chemical Engineering",
+      "start_month": "August",
+      "start_year": "2020",
+      "end_month": "May",
+      "end_year": "2025"
+    },
+    {
+      "school": "KSHS, Vijaygram, Lodhikheda",
+      "degree": "XII",
+      "discipline": "PCM + Cs",
+      "start_month": "August",
+      "start_year": "2018",
+      "end_month": "May",
+      "end_year": "2020"
+    },
+    {
+      "school": "Skyline School, Jam, Sausar",
+      "degree": "X",
+      "discipline": "General",
+      "start_month": "August",
+      "start_year": "2016",
+      "end_month": "May",
+      "end_year": "2018"
+    }
+  ],
+  "custom_questions": {
+    "familiar_with_twitch": "Yes, I'm an advanced user",
+    "is_twitch_employee": "No",
+    "open_to_relocation": "Yes",
+    "is_amazon_employee": "No",
+    "previously_applied_amazon": "No",
+    "previously_employed_amazon": "No",
+    "non_compete_agreement": "No",
+    "eligible_to_begin_employment": "Yes",
+    "immigration_sponsorship": "No",
+    "country_of_citizenship": "India",
+    "future_opportunities_twitch": "Yes",
+    "has_bachelors_degree": "Yes",
+    "experience_writing_sql": "Yes",
+    "veteran_status": "I am not a protected veteran",
+    "disability_status": "No, I don't have a disability"
+  },
+  "gender_identity": "Male",
+  "hispanic_latino": "No",
+  "race_ethnicity": [
+    "Asian"
+  ],
+  "work_authorization": "Yes",
+  "salary_expectations": "Negotiable"
+}

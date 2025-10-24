@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terms &amp; Conditions — Infinity & Beyond</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body { background:#1A1A1D; color:#FFF8F1; font-family:'Poppins',sans-serif; margin:0; }
+    .wrap { max-width:900px; margin:0 auto; padding:40px 20px 80px; }
+    h1 { margin:0 0 8px; font-size:28px; }
+    .sub { opacity:.8; margin-bottom:24px; }
+    .card {
+      background: rgba(255, 248, 241, 0.06);
+      border: 1px solid rgba(255, 248, 241, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      line-height: 1.6;
+      white-space: pre-wrap; /* keep txt formatting */
+    }
+    a { color:#FFF8F1; }
+    .back { display:inline-block; margin-top:18px; text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Terms &amp; Conditions</h1>
+    <div class="sub">Infinity &amp; Beyond</div>
+    <div class="card">
+Terms of Use 
+📄 job Jarvis – Terms of Use
+Last Updated: [Insert Date]
+Welcome to HIRED, a product owned and operated by Infinity & Beyond. By accessing or using our platform ( jobJarvis.infinityandbeyond.co), you agree to be bound by the following terms.
+
+1. Acceptance of Terms
+By using HIRED, you confirm that:
+
+You are authorized to act on behalf of your company
+You agree to abide by these Terms
+You are responsible for the activity performed under your account
+2. Description of Service
+HIRED is an automation platform designed for staffing agencies to:
+
+Scrape job listings from third-party job boards
+Match resumes to job descriptions using AI
+Automatically apply to jobs using consultant credentials
+Track job application activity via a dashboard
+We do not guarantee interview calls, job offers, or placement outcomes.
+
+3. Account Responsibilities
+Clients must:
+
+Provide accurate information during onboarding
+Ensure consultants' login credentials are up-to-date
+Not use dummy/fake resumes
+Avoid logging into job boards manually during automation sessions
+4. Prohibited Activities
+You agree not to:
+
+Use HIRED for spam, mass misrepresentation, or unauthorized access
+Scrape sites where automation is explicitly prohibited
+Reverse engineer or replicate our platform
+HIRED reserves the right to suspend or terminate accounts that breach these terms.
+
+5. Payments & Subscriptions
+$500 setup fee per agency (one-time)
+$50/month per consultant resume
+Monthly billing cycle with auto-renewal
+7-day notice required for cancellations
+Refunds are not provided for mid-cycle cancellations.
+
+6. Intellectual Property
+All content, dashboards, workflows, and automations belong to Infinity & Beyond. You may not copy, replicate, or license any part of our product without written consent.
+
+7. Liability Limitation
+We are not liable for:
+
+Any bans, warnings, or penalties from third-party job boards
+Loss of data due to incorrect usage or external interference
+Downtime caused by APIs or third-party platforms
+8. Modifications
+We reserve the right to update these Terms of Use at any time. Continued use of the platform after changes implies acceptance.
+
+9. Governing Law
+These terms shall be governed by the laws of India, without regard to its conflict of law principles.
+    </div>
+    <a class="back" href="javascript:void(0);" onclick="navigateToLanding()">← Back to Home</a>
+  </div>
+
+  <script>
+    const API_TOKEN = "{{ api_token | safe }}";
+    
+    function navigateToLanding() {
+      window.location.href = `/?token=${API_TOKEN}`;
+    }
+  </script>
+</body>
+</html>
+
+

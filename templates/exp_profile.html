@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile Section</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <!-- Add pdf.js and mammoth.js for client-side file parsing -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mammoth/1.4.17/mammoth.browser.min.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: #1A1A1D;
+            color: #FFF8F1;
+        }
+
+        .profile-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 24px;
+            display: flex;
+            gap: 24px;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            width: 250px;
+            background: rgba(255, 248, 241, 0.05);
+            border-radius: 12px;
+            padding: 16px;
+        }
+
+        .sidebar-item {
+            display: block;
+            color: #FFF8F1;
+            padding: 12px 16px;
+            text-decoration: none;
+            font-size: 16px;
+            border-radius: 8px;
+            margin-bottom: 4px;
+            transition: background 0.3s ease;
+        }
+
+        .sidebar-item:hover {
+            background: rgba(255, 59, 48, 0.2);
+            color: #FFF8F1;
+            cursor: pointer;
+        }
+
+        /* Content */
+        .content {
+            flex: 1;
+        }
+
+        /* Sections */
+        .section {
+            display: none;
+            background: rgba(255, 248, 241, 0.1);
+            border: 1px solid rgba(255, 248, 241, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        .section h2 {
+            color: #7A1C1C;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        /* Profile Header */
+        .profile-header {
+            background: rgba(255, 248, 241, 0.1);
+            border: 1px solid rgba(255, 248, 241, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .profile-picture {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background-color: #FFFFFF;
+            border: 2px solid #7A1C1C;
+            overflow: hidden;
+            flex-shrink: 0;
+            position: relative;
+        }
+
+        .profile-picture input {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .profile-details h1 {
+            color: #7A1C1C;
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .profile-details p {
+            font-size: 16px;
+            color: #FFF8F1;
+            margin-bottom: 4px;
+        }
+
+        /* Forms */
+        input, select, textarea {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #1A1A1D;
+            border: 1px solid #FFF8F1;
+            color: #FFF8F1;
+            border-radius: 8px;
+            font-size: 14px;
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+
+        /* Buttons */
+        button {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            margin-right: 8px;
+            margin-top: 8px;
+        }
+
+        .btn-primary {
+            background: #7A1C1C;
+            color: #FFF8F1;
+        }
+
+        .btn-primary:hover {
+            background: #7A1C1C;
+        }
+
+        .btn-secondary {
+            background: rgba(255, 248, 241, 0.1);
+            color: #FFF8F1;
+            border: 1px solid #7A1C1C;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 59, 48, 0.2);
+        }
+
+        .btn-danger {
+            background: #7A1C1C;
+            color: #FFF8F1;
+        }
+
+        .btn-danger:hover {
+            background: #991F18;
+        }
+
+        /* Messages */
+        .error-message {
+            color: #7A1C1C;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        .success-message {
+            color: #4CAF50;
+            font-size: 14px;
+            margin-top: 8px;
+        }
+
+        /* File Upload */
+        .file-upload {
+            border: 2px dashed rgba(255, 248, 241, 0.5);
+            padding: 24px;
+            text-align: center;
+            border-radius: 8px;
+            margin: 16px 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .file-upload:hover {
+            border-color: #7A1C1C;
+            background: rgba(255, 59, 48, 0.1);
+        }
+
+        .file-upload input {
+            display: none;
+        }
+
+        /* Edit Sections */
+        .edit-section {
+            display: none;
+            margin-top: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 248, 241, 0.2);
+        }
+
+        .edit-section.active {
+            display: block;
+        }
+
+        /* Upload area */
+        .upload-area {
+            border: 2px dashed #FFF8F1;
+            padding: 16px;
+            text-align: center;
+            color: #FFF8F1;
+            border-radius: 8px;
+            margin: 8px 0;
+
+        /* Account Settings Section Specific Styling */
+        #account {
+            background: rgba(255, 248, 241, 0.1);
+            border: 1px solid rgba(255, 248, 241, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+        }
+
+        #account h2 {
+            color: #7A1C1C;
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 16px;
+        }
+
+        #account label {
+            display: block;
+            margin-bottom: 8px;
+            color: #FFF8F1;
+            font-size: 14px;
+        }
+
+        #account input[type="password"] {
+            background: #1A1A1D;
+            border: 1px solid #FFF8F1;
+            color: #FFF8F1;
+            padding: 12px;
+            border-radius: 8px;
+            width: 100%;
+            margin-bottom: 16px;
+        }
+
+        #account button {
+            margin-top: 8px;
+        }
+        }
+        
+    </style>
+</head>
+<body>
+    <div class="profile-container">
+        <!-- Sidebar -->
+        <!-- <div class="sidebar">
+            <a class="sidebar-item" onclick="showSection('resume')">Resume</a>
+            <a class="sidebar-item" onclick="showSection('work-authorization')">Work Authorization</a>
+            <a class="sidebar-item" onclick="showSection('location')">Location</a>
+            <a class="sidebar-item" onclick="showSection('career')">Career Information</a>
+            <a class="sidebar-item" onclick="showSection('generic')">Generic Questions</a>
+        </div> -->
+
+        <!-- Main Content -->
+        <div class="content">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <div class="profile-picture">
+                    <label for="profile_image">
+                        <img src="{{ url_for('static', filename=profile_image or 'default.png') }}" id="profilePreview" class="profile-pic" width="80" height="80" />
+                    </label>
+                    <input type="file" id="profile_image" name="profile_image" accept="image/*" onchange="previewImage(event)">
+                </div>
+                <div class="profile-details">
+                    <div class="view">
+                        <h1>{{ full_name }}</h1>
+                        <p>{{ title }}</p>
+                        <p>{{ email }}</p>
+                        <p>{{ phone }}</p>
+                        <button class="btn-primary" onclick="toggleEdit('profile')">Edit Profile</button>
+                    </div>
+                    <div class="edit-section" id="profile-edit">
+                        <input type="text" id="first_name" value="{{ full_name.split(' ')[0] }}" placeholder="First Name">
+                        <input type="text" id="last_name" value="{{ full_name.split(' ')[1] if full_name.split(' ')|length > 1 else '' }}" placeholder="Last Name">
+                        <input type="text" id="title" value="{{ title }}" placeholder="Professional Title">
+                        <input type="email" id="email" value="{{ email }}" placeholder="Email">
+                        <input type="tel" id="phone" value="{{ phone }}" placeholder="Phone">
+                        <button class="btn-primary" onclick="saveProfile()">Save</button>
+                        <button class="btn-secondary" onclick="cancelEdit('profile')">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Horizontal Navigation Tabs -->
+            <div style="display: flex; gap: 12px; margin-bottom: 24px;">
+                <button onclick="showSection('resume')" class="btn-secondary">Resume</button>
+                <button onclick="showSection('work-authorization')" class="btn-secondary">Work Authorization</button>
+                <button onclick="showSection('job-preferences')" class="btn-secondary">Job Preferences</button>
+                <button onclick="showSection('location')" class="btn-secondary">Location</button>
+                <button onclick="showSection('career')" class="btn-secondary">Career Info</button>
+                <button onclick="showSection('generic')" class="btn-secondary">Generic Questions</button>
+                <button onclick="showSection('account')" class="btn-secondary">Account</button>
+            </div>
+
+
+            <!-- Resume Section -->
+            <div id="resume" class="section">
+                <h2 style="color: #FFF8F1;">Resume</h2>
+                <div class="view">
+                    <p>Your resume is the first impression—make it count! Upload a PDF or DOCX file under 5MB.</p>
+                    <input type="file" id="resume" accept=".pdf,.doc,.docx" class="border p-2 mb-2">
+                    <p>Accepted formats: PDF, DOC, DOCX · Max size: 5MB</p>
+                    {% if resume_path %}
+                        <button onclick="removeResume()" class="btn-danger">Remove</button>
+                        <button onclick="autofillResume()" class="btn-primary ml-2">Autofill from Resume</button>
+                    {% else %}
+                        <button onclick="uploadResume()" class="btn-primary">Upload</button>
+                    {% endif %}
+                </div>
+            </div>
+
+            <!-- Work Authorization Section -->
+            <div id="work-authorization" class="section">
+                <h2 style="color: #FFF8F1;">Work Authorization</h2>
+                <div class="view">
+                    <p>{{ work_authorization or 'Not specified' }}</p>
+                    <!-- <button class="btn-primary" onclick="toggleEdit('work-authorization')">Edit</button> -->
+                </div>
+                <div class="edit-section active" id="work-authorization-edit">
+                    <select id="work_authorization" class="border p-2 mb-2 w-full">
+                        <option value="">Select Work Authorization</option>
+                        <option value="US Citizen" {% if work_authorization == 'US Citizen' %}selected{% endif %}>US Citizen</option>
+                        <option value="Green Card Holder" {% if work_authorization == 'Green Card Holder' %}selected{% endif %}>Green Card Holder</option>
+                        <option value="H1B" {% if work_authorization == 'H1B' %}selected{% endif %}>H1B</option>
+                        <option value="OPT" {% if work_authorization == 'OPT' %}selected{% endif %}>OPT</option>
+                        <option value="CPT" {% if work_authorization == 'CPT' %}selected{% endif %}>CPT</option>
+                        <option value="Other" {% if work_authorization == 'Other' %}selected{% endif %}>Other</option>
+                    </select>
+
+                    <!-- Employment Type -->
+                    <label for="employment_type" class="block text-sm font-medium text-white mt-4">Employment Type</label>
+                    <select id="employment_type" class="border p-2 mb-2 w-full">
+                    <option value="">Select employment type</option>
+                    <option value="W2" {% if employment_type == 'W2' %}selected{% endif %}>W2</option>
+                    <option value="C2C" {% if employment_type == 'C2C' %}selected{% endif %}>C2C</option>
+                    <option value="1099" {% if employment_type == '1099' %}selected{% endif %}>1099</option>
+                    </select>
+
+
+                    <button class="btn-primary" onclick="saveSection('work_authorization')">Save</button>
+                    <button class="btn-secondary" onclick="cancelEdit('work-authorization')">Cancel</button>
+                </div>
+            </div>
+
+                        <!-- Job Preferences Section -->
+            <div id="job-preferences" class="section">
+            <h2 style="color: #FFF8F1;">Job Preferences</h2>
+
+            <!-- Job Type -->
+            <div class="mb-4">
+                <label for="job_type" class="block text-sm font-medium text-white">Job Types</label>
+                <select id="job_type" class="border p-2 w-full">
+                <option value="">Select job type</option>
+                <option>Full-time</option>
+                <option>Part-time</option>
+                <option>Contract</option>
+                <option>Freelance</option>
+                <option>Remote</option>
+                <option>Internship</option>
+                </select>
+            </div>
+
+            <!-- Salary Expectations -->
+            <div class="mb-4">
+                <label for="salary" class="block text-sm font-medium text-white">Salary Expectations</label>
+                <select id="salary" class="border p-2 w-full">
+                <option value="">Select salary range</option>
+                <option>$50,000 - $80,000</option>
+                <option>$80,000 - $100,000</option>
+                <option>$100,000 - $120,000</option>
+                <option>$120,000 - $150,000</option>
+                <option>$150,000+</option>
+                </select>
+            </div>
+
+            <!-- Remote Only Toggle -->
+            <div class="mb-4 flex items-center">
+                <label for="remote_only" class="text-sm font-medium text-white mr-4">Remote Only</label>
+                <input id="remote_only" type="checkbox" style="accent-color: #7A1C1C; width: 20px; height: 20px;">
+            </div>
+
+            <button class="btn-primary" onclick="saveSection('job_preferences')">Save</button>
+            </div>
+
+
+            <!-- Location Section -->
+            <div id="location" class="section">
+                <h2 style="color: #FFF8F1;">Preferred Location</h2>
+                <div class="view">
+                    <p>{{ preferred_location or 'Not specified' }}</p>
+                    <!-- <button class="btn-primary" onclick="toggleEdit('location')">Edit</button> -->
+                </div>
+                <div class="edit-section active" id="location-edit">
+                    <select id="preferred_location" name="preferred_location">
+                        <option value="">Select Preferred Location</option>
+                        <option value="US Anywhere" {% if preferred_location == 'US Anywhere' %}selected{% endif %}>US Anywhere (include remote jobs)</option>
+                        <option value="Remote Only" {% if preferred_location == 'Remote Only' %}selected{% endif %}>Remote Only jobs</option>
+                        <option value="Local Only" {% if preferred_location == 'Local Only' %}selected{% endif %}>Local Only Including Remote Jobs</option>
+                    </select>
+                    <select id="state" name="state">
+                        <option value="">Select a state</option>
+                        {% for state in ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'] %}
+                            <option value="{{ state }}" {% if preferred_location == state %}selected{% endif %}>{{ state }}</option>
+                        {% endfor %}
+                    </select>
+                    <button type="button" class="btn-primary" onclick="saveSection('location')">Save</button>
+                    <button type="button" class="btn-secondary" onclick="cancelEdit('location')">Cancel</button>
+                </div>
+            </div>
+
+            <!-- Career Information Section -->
+            <div id="career" class="section">
+                <h2 style="color: #FFF8F1;">Career Information</h2>
+                <div class="view">
+                    <div class="mb-4">
+                        <p><strong>Key Skills:</strong> {{ key_skills or 'Not specified' }}</p>
+                        <!-- <button onclick="editSection('key-skills')" class="btn-primary mt-2">Edit</button> -->
+                    </div>
+                    <div class="mb-4">
+                        <p><strong>Employment:</strong> {{ employment or 'Not specified' }}</p>
+                        <!-- <button onclick="editSection('employment')" class="btn-primary mt-2">Edit</button> -->
+                    </div>
+                    <div class="mb-4">
+                        <p><strong>Education:</strong> {{ education or 'Not specified' }}</p>
+                        <!-- <button onclick="editSection('education')" class="btn-primary mt-2">Edit</button> -->
+                    </div>
+                    <div class="mb-4">
+                        <p><strong>Certifications:</strong> {{ certifications or 'Not specified' }}</p>
+                        <!-- <button onclick="editSection('certifications')" class="btn-primary mt-2">Edit</button> -->
+                    </div>
+                    <div class="mb-4">
+                        <p><strong>Projects:</strong> {{ projects or 'Not specified' }}</p>
+                        <!-- <button onclick="editSection('projects')" class="btn-primary mt-2">Edit</button> -->
+                    </div>
+                </div>
+                <div class="edit-section active" id="key-skills-edit">
+                    <div class="mb-4">
+                        <label for="key_skills" class="block text-sm font-medium text-white">Key Skills</label>
+                        <textarea id="key_skills" class="border p-2 mb-2 w-full">{{ key_skills or '' }}</textarea>
+                        <button onclick="saveSection('key_skills')" class="btn-primary">Save</button>
+                        <button onclick="cancelEdit('key-skills')" class="btn-secondary ml-2">Cancel</button>
+                    </div>
+                </div>
+                <div class="edit-section active" id="employment-edit">
+                    <div class="mb-4">
+                        <label for="employment" class="block text-sm font-medium text-white">Employment</label>
+                        <textarea id="employment" class="border p-2 mb-2 w-full">{{ employment or '' }}</textarea>
+                        <button onclick="saveSection('employment')" class="btn-primary">Save</button>
+                        <button onclick="cancelEdit('employment')" class="btn-secondary ml-2">Cancel</button>
+                    </div>
+                </div>
+                <div class="edit-section active" id="education-edit">
+                    <div class="mb-4">
+                        <label for="education" class="block text-sm font-medium text-white">Education</label>
+                        <textarea id="education" class="border p-2 mb-2 w-full">{{ education or '' }}</textarea>
+                        <button onclick="saveSection('education')" class="btn-primary">Save</button>
+                        <button onclick="cancelEdit('education')" class="btn-secondary ml-2">Cancel</button>
+                    </div>
+                </div>
+                <div class="edit-section active" id="certifications-edit">
+                    <div class="mb-4">
+                        <label for="certifications" class="block text-sm font-medium text-white">Certifications</label>
+                        <textarea id="certifications" class="border p-2 mb-2 w-full">{{ certifications or '' }}</textarea>
+                        <button onclick="saveSection('certifications')" class="btn-primary">Save</button>
+                        <button onclick="cancelEdit('certifications')" class="btn-secondary ml-2">Cancel</button>
+                    </div>
+                </div>
+                <div class="edit-section active" id="projects-edit">
+                    <div class="mb-4">
+                        <label for="projects" class="block text-sm font-medium text-white">Projects</label>
+                        <textarea id="projects" class="border p-2 mb-2 w-full">{{ projects or '' }}</textarea>
+                        <button onclick="saveSection('projects')" class="btn-primary">Save</button>
+                        <button onclick="cancelEdit('projects')" class="btn-secondary ml-2">Cancel</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Generic Questions Section -->
+            <div id="generic" class="section">
+                <h2 style="color: #FFF8F1;">Generic Questions</h2>
+                <p>This section will be updated soon.</p>
+            </div>
+        </div>
+    </div>
+
+            <!-- Account Settings Section -->
+            <!-- Account Settings Section -->
+            <!-- Account Settings Section -->
+            <div id="account" class="section">
+                <h2>Account Settings</h2>
+                <div class="account-content">
+                    <label for="current_password">Current Password</label>
+                    <input type="password" id="current_password" placeholder="Enter current password">
+                    
+                    <label for="new_password">New Password</label>
+                    <input type="password" id="new_password" placeholder="Enter new password">
+                    
+                    <label for="confirm_password">Confirm Password</label>
+                    <input type="password" id="confirm_password" placeholder="Confirm new password">
+                    
+                    <button class="btn-secondary">Update Password</button>
+                </div>
+            </div>
+    <script>
+        // Show section when sidebar item clicked
+        function showSection(id) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => section.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        // Toggle edit mode
+        function toggleEdit(section) {
+            const edit = document.getElementById(`${section}-edit`);
+            if (edit) edit.classList.toggle('active');
+        }
+
+        // Edit specific section
+        function editSection(section) {
+            const edit = document.getElementById(`${section}-edit`);
+            if (edit) edit.classList.add('active');
+        }
+
+        // Cancel edit mode
+        function cancelEdit(section) {
+            const edit = document.getElementById(`${section}-edit`);
+            if (edit) edit.classList.remove('active');
+        }
+
+        // Save section data
+        async function saveSection(field) {
+            const formData = new FormData();
+            const candidate_id = '{{ candidate_id }}';
+
+            if (field === 'location') {
+                formData.append('preferred_location', document.getElementById('preferred_location').value);
+                formData.append('state', document.getElementById('state').value);
+            } else {
+                const value = document.getElementById(field).value;
+                formData.append(field, value);
+            }
+
+            formData.append('candidate_id', candidate_id);
+
+            try {
+                const response = await fetch('/profile', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.message) {
+                    alert(data.message);
+                    cancelEdit(field.replace('_', '-'));
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error saving section:', error);
+                alert('Failed to save changes. Please try again.');
+            }
+        }
+
+        // Save profile data
+        async function saveProfile() {
+            const formData = new FormData();
+            formData.append('first_name', document.getElementById('first_name').value);
+            formData.append('last_name', document.getElementById('last_name').value);
+            formData.append('title', document.getElementById('title').value);
+            formData.append('email', document.getElementById('email').value);
+            formData.append('phone', document.getElementById('phone').value);
+            formData.append('candidate_id', '{{ candidate_id }}');
+            try {
+                const response = await fetch('/profile', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.message) {
+                    alert(data.message);
+                    cancelEdit('profile');
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error saving profile:', error);
+                alert('Failed to save profile. Please try again.');
+            }
+        }
+
+        // Upload resume
+        async function uploadResume() {
+            const resumeInput = document.getElementById('resume');
+            if (!resumeInput.files[0]) {
+                alert('Please select a resume file.');
+                return;
+            }
+            const formData = new FormData();
+            formData.append('resume', resumeInput.files[0]);
+            formData.append('candidate_id', '{{ candidate_id }}');
+            try {
+                const response = await fetch('/profile', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.message) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error uploading resume:', error);
+                alert('Failed to upload resume. Please try again.');
+            }
+        }
+
+        // Remove resume
+        async function removeResume() {
+            const formData = new FormData();
+            formData.append('action', 'remove_resume');
+            formData.append('candidate_id', '{{ candidate_id }}');
+            try {
+                const response = await fetch('/profile', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.message) {
+                    alert(data.message);
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error removing resume:', error);
+                alert('Failed to remove resume. Please try again.');
+            }
+        }
+
+        // Autofill resume
+        async function autofillResume() {
+            const formData = new FormData();
+            formData.append('action', 'autofill_resume');
+            formData.append('candidate_id', '{{ candidate_id }}');
+            try {
+                const response = await fetch('/profile', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+                if (data.message) {
+                    alert(data.message);
+                    if (data.profile_data) {
+                        document.getElementById('key_skills').value = data.profile_data.key_skills || '';
+                        document.getElementById('employment').value = data.profile_data.employment || '';
+                        document.getElementById('education').value = data.profile_data.education || '';
+                        document.getElementById('certifications').value = data.profile_data.certifications || '';
+                        document.getElementById('projects').value = data.profile_data.projects || '';
+                    }
+                    location.reload();
+                } else {
+                    alert(data.error);
+                }
+            } catch (error) {
+                console.error('Error autofilling resume:', error);
+                alert('Failed to autofill resume. Please try again.');
+            }
+        }
+    </script>
+
+    <script>
+function previewImage(event) {
+    const reader = new FileReader();
+    reader.onload = function(){
+        document.getElementById('profilePreview').src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+}
+    </script>
+
+</body>
+</html>

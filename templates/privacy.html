@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Privacy Policy — Infinity & Beyond</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body { background:#1A1A1D; color:#FFF8F1; font-family:'Poppins',sans-serif; margin:0; }
+    .wrap { max-width:900px; margin:0 auto; padding:40px 20px 80px; }
+    h1 { margin:0 0 8px; font-size:28px; }
+    .sub { opacity:.8; margin-bottom:24px; }
+    .card {
+      background: rgba(255, 248, 241, 0.06);
+      border: 1px solid rgba(255, 248, 241, 0.2);
+      border-radius: 12px;
+      padding: 24px;
+      line-height: 1.6;
+      white-space: pre-wrap; /* keep txt formatting */
+    }
+    a { color:#FFF8F1; }
+    .back { display:inline-block; margin-top:18px; text-decoration:underline; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <h1>Privacy Policy</h1>
+    <div class="sub">Infinity &amp; Beyond</div>
+    <div class="card">
+job Jarvis – Privacy Policy
+1. Information We Collect
+We collect:
+
+Agency name, admin contact, and consultant info
+Uploaded resumes and related metadata
+Job board credentials (encrypted)
+Activity logs and dashboard usage
+2. How We Use It
+We use this data to:
+
+Autom
+3. Credential Storage & Encryption
+All credentials are encrypted using AES-256 standards
+Stored securely in our encrypted credential vault
+Only used by automation agents when triggered
+Never exposed in plaintext to any user or admin
+4. Third-Party Integrations
+We use:
+
+OpenAI for resume matching
+
+Hosting
+
+Each tool has its own data and privacy policies.
+
+5. Data Retention & Deletion
+Client data is stored for the duration of the subscription
+Upon cancellation, all associated data is permanently deleted within 15 business days
+You may request early deletion via email
+6. Security Practices
+HTTPS encryption across the platform
+Regular vulnerability checks
+Limited access to sensitive infrastructure
+7. Cookies & Analytics
+We use cookies for:
+
+Login sessions
+
+Platform analytics (page views, clicks)
+
+You may disable cookies, but some features may not work properly.
+
+8. Your Rights
+You can:
+
+Access or update your data anytime
+Request deletion or porting of your data
+Contact our Data Protection Officer: [Info@infinityandbeyond.co]
+9. Contact
+If you have questions, contact us at:
+
+📧 Info**@infinityandbeyond.co**
+    </div>
+    <a class="back" href="javascript:void(0);" onclick="navigateToLanding()">← Back to Home</a>
+  </div>
+
+  <script>
+    const API_TOKEN = "{{ api_token | safe }}";
+    
+    function navigateToLanding() {
+      window.location.href = `/?token=${API_TOKEN}`;
+    }
+  </script>
+</body>
+</html>
+
+

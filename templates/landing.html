@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Welcome to Job Seeker Platform</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      background-color: #1A1A1D;
+      color: #FFF8F1;
+      font-family: 'Poppins', sans-serif;
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      max-width: 800px;
+      width: 100%;
+      background: rgba(255, 248, 241, 0.1);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 248, 241, 0.2);
+      border-radius: 12px;
+      padding: 40px;
+      text-align: center;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+      margin: auto; /* center the card vertically */
+    }
+    h1 { color: #FFFFFF; margin-bottom: 30px; font-size: 28px; font-weight: 600; }
+    .btn-group { display: flex; flex-direction: column; gap: 15px; }
+    button {
+      color: #FFF8F1; padding: 12px 25px; border: none; border-radius: 8px; cursor: pointer;
+      font-size: 16px; font-weight: 600; width: 100%; max-width: 300px; margin: 0 auto; transition: background 0.3s ease;
+    }
+    button:hover { transform: translateY(-2px); }
+    .btn-recruiter, .btn-employee { background-color: #7A1C1C; }
+    .btn-recruiter:hover, .btn-employee:hover { background-color: #7A1C1C; }
+    /* footer */
+    footer {
+      margin-top: 32px;
+      padding: 20px 16px 40px;
+      text-align: center;
+      color: #FFF8F1;
+      font-size: 14px;
+    }
+    .footer-line {
+      height: 1px;
+      background: #7A1C1C;
+      max-width: 90%;
+      margin: 0 auto 18px;
+      opacity: 0.7;
+    }
+    .footer-links {
+      display: flex; gap: 28px; justify-content: center; flex-wrap: wrap;
+    }
+    .footer-links a {
+      color: #FFF8F1; text-decoration: none; font-weight: 600;
+    }
+    .footer-links a:hover { text-decoration: underline; }
+    @media (max-width: 600px) {
+      .container { padding: 24px; margin: 16px; }
+      button { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Welcome to JobJarvis</h1>
+   <div class="btn-group">
+      <button class="btn-recruiter" onclick="navigateToLogin('recruiter')">Join as Recruiter</button>
+      <button class="btn-employee" onclick="navigateToLogin('employee')">Join as Job Seeker</button>
+    </div>
+  </div>
+
+  <footer>
+    <div class="footer-line"></div>
+    <div class="footer-links">
+      <span>nayakinaidu@infinityandbeyond.co</span>
+      <a href="https://www.infinityandbeyond.co/" target="_blank" rel="noopener">https://www.infinityandbeyond.co/</a>
+      <a href="javascript:void(0);" onclick="navigateToPrivacy()">Privacy Policy</a>
+      <a href="javascript:void(0);" onclick="navigateToTerms()">Terms & Conditions</a>
+    </div>
+  </footer>
+
+
+  <script>
+    // Inject environment variables
+    const API_TOKEN = "{{ api_token | safe }}";
+    const BACKEND_URL = "https://minute-gallery--automation-application-apify-backend.apify.actor";
+
+    // Navigate to login without exposing token in URL
+    function navigateToLogin(role) {
+      window.location.href = `/login?role=${role}&token=${API_TOKEN}`;
+    }
+
+    function navigateToPrivacy() {
+      window.location.href = `/privacy?token=${API_TOKEN}`;
+    }
+
+    function navigateToTerms() {
+      window.location.href = `/terms?token=${API_TOKEN}`;
+    }
+
+    // Example: Test health endpoint to verify token and URL
+    async function checkHealth() {
+      try {
+        const response = await fetch(`${BACKEND_URL}/health?token=`);
+        const data = await response.json();
+        console.log(data); // Should log: { "status": "ok", "message": "Backend is running!" }
+      } catch (error) {
+        console.error('Health check failed:', error);
+      }
+    }
+    checkHealth();
+  </script>
+</body>
+</html>
+

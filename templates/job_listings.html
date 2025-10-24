@@ -1,0 +1,429 @@
+<script type="text/javascript">
+        var gk_isXlsx = false;
+        var gk_xlsxFileLookup = {};
+        var gk_fileData = {};
+        function filledCell(cell) {
+          return cell !== '' && cell != null;
+        }
+        function loadFileData(filename) {
+        if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
+            try {
+                var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
+                var firstSheetName = workbook.SheetNames[0];
+                var worksheet = workbook.Sheets[firstSheetName];
+
+                // Convert sheet to JSON to filter blank rows
+                var jsonData = XLSX.utils.sheet_to_json(worksheet, { header: 1, blankrows: false, defval: '' });
+                // Filter out blank rows (rows where all cells are empty, null, or undefined)
+                var filteredData = jsonData.filter(row => row.some(filledCell));
+
+                // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
+                var headerRowIndex = filteredData.findIndex((row, index) =>
+                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                );
+                // Fallback
+                if (headerRowIndex === -1 || headerRowIndex > 25) {
+                  headerRowIndex = 0;
+                }
+
+                // Convert filtered JSON back to CSV
+                var csv = XLSX.utils.aoa_to_sheet(filteredData.slice(headerRowIndex)); // Create a new sheet from filtered array of arrays
+                csv = XLSX.utils.sheet_to_csv(csv, { header: 1 });
+                return csv;
+            } catch (e) {
+                console.error(e);
+                return "";
+            }
+        }
+        return gk_fileData[filename] || "";
+        }
+        </script><!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Listings</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #1A1A1D;
+            color: #FFF8F1;
+            margin: 0;
+            padding: 20px;
+        }
+        .job-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .job-listing {
+            background-color: #2C2F33;
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            transition: transform 0.2s;
+        }
+        .job-listing:hover {
+            transform: scale(1.02);
+        }
+        .job-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+        .job-details {
+            color: #A3A3A3;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        .job-details span {
+            margin-right: 15px;
+        }
+        button {
+            padding: 8px 15px;
+            background-color: #7289DA;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #5A6DBA;
+        }
+    </style>
+</head>
+<body>
+    <div class="job-container">
+        <h2>All Jobs</h2>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist, Analytics</div>
+            <div class="job-details">
+                <span>Company: Discord</span>
+                <span>Location: San Francisco Bay Area</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">AI / ML Engineer OR Data Scientist</div>
+            <div class="job-details">
+                <span>Company: Veracity Software Inc</span>
+                <span>Location: Iselin, NJ</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Machine Learning Engineer</div>
+            <div class="job-details">
+                <span>Company: Netflix</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist (L5) - Customer Service</div>
+            <div class="job-details">
+                <span>Company: Netflix</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Growth Data Scientist/ Analyst</div>
+            <div class="job-details">
+                <span>Company: Crypto.com</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist, Remote</div>
+            <div class="job-details">
+                <span>Company: Experian</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist (L5), TV Innovation</div>
+            <div class="job-details">
+                <span>Company: Netflix</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist (L5) - Ads Consumer</div>
+            <div class="job-details">
+                <span>Company: Netflix</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist, Platform</div>
+            <div class="job-details">
+                <span>Company: Airbnb</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist</div>
+            <div class="job-details">
+                <span>Company: Zest AI</span>
+                <span>Location: United States</span>
+                <span>Source: LinkedIn</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">DATA SCIENTIST</div>
+            <div class="job-details">
+                <span>Company: County of Los Angeles</span>
+                <span>Location: Los Angeles, CA, United States</span>
+                <span>Source: Simplify</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist - AI Trainer</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: United States</span>
+                <span>Source: Simplify</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Machine Learning Applied Research Scientist</div>
+            <div class="job-details">
+                <span>Company: Apple</span>
+                <span>Location: Cupertino, CA, United States</span>
+                <span>Source: Simplify</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Senior Data Scientist</div>
+            <div class="job-details">
+                <span>Company: CYNET SYSTEMS</span>
+                <span>Location: Marysville, OH, United States</span>
+                <span>Source: Simplify</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Machine Learning Data Scientist-Vice President</div>
+            <div class="job-details">
+                <span>Company: JPMorgan Chase & Co.</span>
+                <span>Location: Columbus, OH, United States</span>
+                <span>Source: Simplify</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist - Member of Technical Staff</div>
+            <div class="job-details">
+                <span>Company: Harper</span>
+                <span>Location: San Francisco, CA, US</span>
+                <span>Source: Y Combinator</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist (Customer Facing)</div>
+            <div class="job-details">
+                <span>Company: Shaped</span>
+                <span>Location: New York, NY, US</span>
+                <span>Source: Y Combinator</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Head of Data Science / Machine Learning</div>
+            <div class="job-details">
+                <span>Company: Instawork</span>
+                <span>Location: United States</span>
+                <span>Source: Y Combinator</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist - Growth</div>
+            <div class="job-details">
+                <span>Company: Slope</span>
+                <span>Location: United States</span>
+                <span>Source: Y Combinator</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Science Engineer</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: New York City, United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist</div>
+            <div class="job-details">
+                <span>Company: Oscar Health</span>
+                <span>Location: Remote • New York City, United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Senior Manager, Data Science</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: Remote • New York City, United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Science Intern - Summer 2025</div>
+            <div class="job-details">
+                <span>Company: Bandwidth</span>
+                <span>Location: Raleigh, United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Staff/Senior Data Scientist, Genomics Algos</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">1st hire: Data Science</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: Remote only • United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Senior Healthcare Data Scientist</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist (USA-Remote)</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: Remote • United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Senior Data Scientist</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: Remote • New York, United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist / Machine Learning Engineer - Personalization</div>
+            <div class="job-details">
+                <span>Company: Not specified</span>
+                <span>Location: United States</span>
+                <span>Source: Wellfound</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist</div>
+            <div class="job-details">
+                <span>Company: USAA</span>
+                <span>Location: San Antonio, TX, United States</span>
+                <span>Source: Indeed</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist</div>
+            <div class="job-details">
+                <span>Company: Parafin</span>
+                <span>Location: San Francisco, CA, United States</span>
+                <span>Source: Indeed</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Data Scientist Senior</div>
+            <div class="job-details">
+                <span>Company: USAA</span>
+                <span>Location: San Antonio, TX, United States</span>
+                <span>Source: Indeed</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+        <div class="job-listing">
+            <div class="job-title">Application Developer (Data Science)</div>
+            <div class="job-details">
+                <span>Company: Pegasi Defense</span>
+                <span>Location: Herndon, VA, United States</span>
+                <span>Source: Indeed</span>
+                <span>Posted: Yesterday</span>
+                <button>View Details</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

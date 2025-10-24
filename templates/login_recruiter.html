@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            background-color: #1A1A1D;
+            color: #FFF8F1;
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .login-container {
+            background: rgba(255, 248, 241, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 248, 241, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+        }
+        .login-container h2 {
+            color: #FFFFFF;
+            font-size: 24px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .login-container label {
+            display: block;
+            font-size: 16px;
+            color: #FFF8F1;
+            margin-bottom: 8px;
+        }
+        .login-container input {
+            width: 90%;
+            padding: 8px;
+            margin-bottom: 16px;
+            background: #1A1A1D;
+            border: 1px solid #FFF8F1;
+            color: #FFF8F1;
+            border-radius: 8px;
+        }
+        .login-container button {
+            width: 30%;
+            padding: 8px 12px;
+            background: #7A1C1C;
+            border: none;
+            color: #FFF8F1;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: background 0.3s ease;
+            margin: 0 auto; /* Centers the button */
+            display: block; /* Ensures the button respects margin: auto */
+        }
+        .login-container button:hover {
+            background: #7A1C1C;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 16px;
+        }
+        .signup-link a {
+            color: #FFFFFF;
+            text-decoration: none;
+        }
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        .modal-content {
+            background: rgba(255, 248, 241, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 248, 241, 0.2);
+            border-radius: 12px;
+            padding: 24px;
+            width: 100%;
+            max-width: 400px;
+            position: relative;
+        }
+        .modal-content h2 {
+            color: #7A1C1C;
+            font-size: 24px;
+            margin-bottom: 16px;
+            text-align: center;
+        }
+        .modal-content label {
+            display: block;
+            font-size: 16px;
+            color: #FFF8F1;
+            margin-bottom: 8px;
+        }
+        .modal-content input {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 16px;
+            background: #1A1A1D;
+            border: 1px solid #FFF8F1;
+            color: #FFF8F1;
+            border-radius: 8px;
+        }
+        .modal-content button {
+            width: 50%;
+            padding: 8px;
+            background: #7A1C1C;
+            border: none;
+            color: #FFF8F1;
+            cursor: pointer;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: background 0.3s ease;
+            margin: 0 auto;
+            display: block;
+            
+        }
+        .modal-content button:hover {
+            background: #7A1C1C;
+        }
+        .modal-content button.cancel {
+            background: #1A1A1D;
+            border: 1px solid #FFF8F1;
+        }
+        .modal-content button.cancel:hover {
+            background: #333336;
+        }
+        .button-group {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        /* Updated consent checkbox styling */
+        .consent-container {
+            margin: 18px 0;
+            width: 100%;
+        }
+        .consent-checkbox {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+        }
+        .consent-checkbox input {
+            width: auto;
+            margin: 4px 10px 0 0;
+            accent-color: #7A1C1C;
+        }
+        .consent-checkbox label {
+            font-size: 14px;
+            color: #FFF8F1;
+            margin: 0;
+            text-align: left;
+        }
+        .consent-checkbox a {
+            color: #7A1C1C;
+            text-decoration: none;
+        }
+        .consent-more {
+            display: none;
+            margin-top: 12px;
+            background: #1A1A1D;
+            border: 1px solid #7A1C1C;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 13px;
+            color: #FFF8F1;
+            text-align: left;
+        }
+        .consent-more strong {
+            color: #7A1C1C;
+        }
+        .consent-more ul {
+            padding-left: 20px;
+            margin: 8px 0;
+        }
+        .consent-more p {
+            margin: 8px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2>Login</h2>
+        <form id="login-form">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" placeholder="Enter your email">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            <button type="submit">Login</button>
+        </form>
+        <div class="signup-link">
+            <p>Don't have an account? <a href="#" onclick="openModal()">Sign up</a></p>
+        </div>
+    </div>
+
+    <div id="signup-modal" class="modal">
+        <div class="modal-content">
+            <h2 style="color: #FFF8F1;">Admin Sign Up</h2>
+            <form id="signup-form">
+                <label for="first-name">First Name:</label>
+                <input type="text" id="first-name" name="first_name" placeholder="Enter your first name">
+                <label for="last-name">Last Name:</label>
+                <input type="text" id="last-name" name="last_name" placeholder="Enter your last name">
+                <label for="company-name">Company Name:</label>
+                <input type="text" id="company-name" name="company_name" placeholder="Enter your company name" required>
+                <label for="location">Location:</label>
+                <input type="text" id="location" name="company_location" placeholder="Enter company location" required>
+                <label for="signup-email">Email:</label>
+                <input type="email" id="signup-email" name="email" placeholder="Enter your email">
+                <label for="phone">Phone:</label>
+                <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                <label for="signup-password">Password:</label>
+                <input type="password" id="signup-password" name="password" placeholder="Enter your password">
+                <input type="hidden" id="role" name="role" value="recruiter">
+
+                <!-- Updated Consent Checkbox Section -->
+                <div class="consent-container">
+                    <div class="consent-checkbox">
+                        <input type="checkbox" id="emailConsent" name="emailConsent" required>
+                        <label for="emailConsent">
+                            I allow <strong>Infinity & Beyond</strong> to access my job-related emails.
+                            <a href="#" onclick="showConsentDetails(); return false;">See more</a>
+                        </label>
+                    </div>
+                    
+                    <div id="consentMore" class="consent-more">
+                        <p><strong>📩 Email Usage & Consent Notice</strong></p>
+                        <p>By entering your email, you agree and acknowledge that:</p>
+                        <ul>
+                            <li>Our AI agents access job-related emails (e.g., interviews, offers).</li>
+                            <li>This lets us track applications, schedule interviews, and update your dashboard in real-time.</li>
+                            <li>Your data is encrypted and used only to help automate your job search.</li>
+                        </ul>
+                        <p>
+                            ☑ I understand and consent to Infinity & Beyond accessing my job-related emails in accordance with the
+                            <a href="/privacy-policy?token=" target="_blank" style="color: #7A1C1C;">Privacy Policy</a>.
+                        </p>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; align-items: center; margin-top: 24px; gap: 12px;">
+                    <button type="submit" class="btn signup" style="width: 100%;">Sign Up</button>
+                    <button type="button" class="btn cancel" onclick="closeModal()" style="width: 100%;">Cancel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Get role from URL query parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const role = urlParams.get('role') || 'recruiter';
+        document.getElementById('role').value = role;
+
+        // Handle login form submission
+        document.getElementById('login-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            try {
+                const response = await fetch('/login?token=', {
+                    method: 'POST',
+                    body: formData
+                });
+                const result = await response.json();
+                    if (result.message) {
+                        alert(result.message);
+                        window.location.href = result.redirect + '?token=';
+
+                } else {
+                    alert(result.error);
+                }
+            } catch (error) {
+                alert('An error occurred during login.');
+            }
+        });
+
+        // Handle signup form submission
+        document.getElementById('signup-form').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+
+            const formObject = Object.fromEntries(formData.entries());
+            console.log('Form data being sent:', formObject);
+
+            try {
+                const response = await fetch('/signup?token=', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams(formData)
+                });
+
+                const result = await response.json();
+                if (result.message) {
+                    alert(result.message);  // "Account created. Awaiting approval."
+                    closeModal();
+                } else {
+                    alert(result.error || 'An error occurred during sign up.');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('An error occurred during sign up.');
+            }
+        });
+
+        function openModal() {
+            document.getElementById('signup-modal').style.display = 'flex';
+        }
+
+        function closeModal() {
+            document.getElementById('signup-modal').style.display = 'none';
+            document.getElementById('signup-form').reset();
+            document.getElementById('consentMore').style.display = 'none';
+        }
+
+        function showConsentDetails() {
+            const consentMore = document.getElementById('consentMore');
+            const seeMoreLink = document.querySelector('.consent-checkbox a');
+
+            if (consentMore.style.display === 'block') {
+                consentMore.style.display = 'none';
+                seeMoreLink.textContent = 'See more';
+            } else {
+                consentMore.style.display = 'block';
+                seeMoreLink.textContent = 'See less';
+            }
+
+            return false;
+        }
+    </script>
+</body>
+</html>

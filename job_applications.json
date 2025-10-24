@@ -1,0 +1,200 @@
+[
+  {
+    "timestamp": "2025-07-07T12:04:12.206624",
+    "url": "https://www.ycombinator.com/companies/picnichealth/jobs/hTP151z-ai-engineer",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Failed to infer career URL"
+  },
+  {
+    "timestamp": "2025-07-07T12:05:06.194912",
+    "url": "https://wellfound.com/jobs/3334348-deep-learning-engineer-sdk",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:05:33.656111",
+    "url": "https://jobs.ashbyhq.com/Jerry/b1dcb50c-b2a3-4034-98b0-c5a9bbd43364?utm_source=6Vdva5VPyD",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Success",
+    "message": "Submitted"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:06.937435",
+    "url": "https://jobright.ai/jobs/info/6865c2b574d7b0c6769b17d9?tob=true",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Success",
+    "message": "Submitted"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:11.841056",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-product-analytics-at-meta-4120828052?position=5&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=K2H0DIqm8RuvaBcI3OzrGQ%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Failed to infer career URL"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:24.578977",
+    "url": "https://jobs.ashbyhq.com/Jerry/b1dcb50c-b2a3-4034-98b0-c5a9bbd43364?utm_source=6Vdva5VPyD",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Object of type WebElement is not JSON serializable"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:29.367706",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-energy-analytics-google-cloud-at-google-4255909059?position=6&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=17KN13XKkxij57mCB6g6Vg%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Failed to infer career URL"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:34.869200",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-product-play-data-science-and-analytics-at-google-4255529753?position=3&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=l6DjN%2FjnQNSmt7uybF8f3g%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Failed to infer career URL"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:41.792818",
+    "url": "https://www.linkedin.com/jobs/view/staff-data-scientist-research-search-platforms-at-google-4254843461?position=4&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=om%2FHF6yxX91Ls7nl5BK2Xg%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Failed to infer career URL"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:45.889143",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-gtm-at-notion-4214365517?position=7&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=greDhu%2FIA071RHtJaTT3RQ%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Failed to infer career URL"
+  },
+  {
+    "timestamp": "2025-07-07T12:07:49.789922",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-iii-research-search-ads-at-google-4256705330?position=2&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=XNZcrI%2BJsoa%2FJaGDF0M8BA%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "Failed to infer career URL"
+  },
+  {
+    "timestamp": "2025-07-07T12:22:36.340303",
+    "url": "https://www.ycombinator.com/companies/picnichealth/jobs/hTP151z-ai-engineer",
+    "company": "Y Combinator",
+    "title": "AI Engineer",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:23:43.366407",
+    "url": "https://wellfound.com/jobs/3334348-deep-learning-engineer-sdk",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:24:11.151381",
+    "url": "https://jobs.ashbyhq.com/Jerry/b1dcb50c-b2a3-4034-98b0-c5a9bbd43364?utm_source=6Vdva5VPyD",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Success",
+    "message": "Submitted"
+  },
+  {
+    "timestamp": "2025-07-07T12:24:58.706295",
+    "url": "https://jobright.ai/jobs/info/6865c2b574d7b0c6769b17d9?tob=true",
+    "company": "Jobright AI",
+    "title": "Machine Learning Engineer @ Two Dots | Jobright.ai",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:26:10.383891",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-product-analytics-at-meta-4120828052?position=5&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=K2H0DIqm8RuvaBcI3OzrGQ%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:26:35.169518",
+    "url": "https://jobs.ashbyhq.com/Jerry/b1dcb50c-b2a3-4034-98b0-c5a9bbd43364?utm_source=6Vdva5VPyD",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Success",
+    "message": "Submitted"
+  },
+  {
+    "timestamp": "2025-07-07T12:27:43.707328",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-energy-analytics-google-cloud-at-google-4255909059?position=6&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=17KN13XKkxij57mCB6g6Vg%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:28:46.144846",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-product-play-data-science-and-analytics-at-google-4255529753?position=3&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=l6DjN%2FjnQNSmt7uybF8f3g%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:30:00.587619",
+    "url": "https://www.linkedin.com/jobs/view/staff-data-scientist-research-search-platforms-at-google-4254843461?position=4&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=om%2FHF6yxX91Ls7nl5BK2Xg%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:31:00.959388",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-gtm-at-notion-4214365517?position=7&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=greDhu%2FIA071RHtJaTT3RQ%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Failed",
+    "message": "No confirmation detected"
+  },
+  {
+    "timestamp": "2025-07-07T12:32:22.540337",
+    "url": "https://www.linkedin.com/jobs/view/data-scientist-iii-research-search-ads-at-google-4256705330?position=2&pageNum=0&refId=5PofYbzKtj%2BjGga%2FO2xf%2BA%3D%3D&trackingId=XNZcrI%2BJsoa%2FJaGDF0M8BA%3D%3D",
+    "company": "",
+    "title": "",
+    "source": "jobs.csv",
+    "status": "Success",
+    "message": "Submitted"
+  }
+]
